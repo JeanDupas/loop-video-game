@@ -15,6 +15,8 @@ public class Level_Controller : MonoBehaviour {
     public GameObject obstacles;
     public GameObject background;
 
+    public GameObject endDisplay;
+
     private void Awake()
     {
         //Check if instance already exists
@@ -40,6 +42,8 @@ public class Level_Controller : MonoBehaviour {
         groundAnimator = ground.GetComponent<Animator>();
         obstaclesAnimator = obstacles.GetComponent<Animator>();
         backgroundAnimator = background.GetComponent<Animator>();
+
+        endDisplay.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -55,6 +59,9 @@ public class Level_Controller : MonoBehaviour {
         {
             case 2:
                 setLevel2();
+                break;
+            case 3:
+                setLevel3();
                 break;
         }
     }
@@ -82,6 +89,11 @@ public class Level_Controller : MonoBehaviour {
     {
         Debug.Log("Teleport Trigger Level 2");
         obstaclesAnimator.SetTrigger("switchState");
+    }
+
+    private void setLevel3()
+    {
+        endDisplay.SetActive(true);
     }
 
 
