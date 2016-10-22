@@ -69,6 +69,9 @@ public class Level_Controller : MonoBehaviour {
             case 3:
                 setLevel3();
                 break;
+            case 4:
+                setLevel4();
+                break;
         }
     }
 
@@ -83,6 +86,9 @@ public class Level_Controller : MonoBehaviour {
                 teleportTriggerLevel2();
                 break;
             case 3:
+                teleportTriggerLevel2();
+                break;
+            case 4:
                 teleportTriggerLevel2();
                 break;
         }
@@ -107,10 +113,11 @@ public class Level_Controller : MonoBehaviour {
         obstaclesAnimator.SetInteger("level", 3);
     }
 
-    private void teleportTriggerLevel3()
+    private void setLevel4()
     {
-        obstaclesAnimator.SetTrigger("switchState");
+        //endDisplay.SetActive(true);
+        groundAnimator.SetInteger("level", 4);
+        obstaclesAnimator.SetInteger("level", 4);
     }
-
 
 }

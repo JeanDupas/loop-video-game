@@ -82,7 +82,9 @@ namespace UnityStandardAssets._2D
             // Set whether or not the character is crouching in the animator
             m_Anim.SetBool("Crouch", crouch);
 
-            //only control the player if grounded or airControl is turned on
+            // On contrôle le perso seulement s'il touche le sol OU si l'air contrôle est activé + si le contrôle n'est pas désactivé
+            // Le contrôle est désactivé si le perso est en collison avec un objet du masque m_WhatDisableControl
+            // Cela permet d'éviter certains bugs quand le joueur continu de se déplacer vers un mur/obstacle lorsqu'il est en l'air 
             if (m_Grounded || (m_AirControl && !m_Disabled) )
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
