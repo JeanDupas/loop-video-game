@@ -12,12 +12,9 @@ namespace Loop
         // Si on téléporte sur l'axe des Y
         public bool Axis_Y;
 
-        public Level_Controller levelController;
-
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame

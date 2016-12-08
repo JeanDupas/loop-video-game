@@ -18,7 +18,11 @@ public class End : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        col.transform.position = new Vector3(target.position.x, col.transform.position.y, col.transform.position.z);
-        Level_Controller.instance.nextLevel();
+        if(col.tag == "Player")
+        {
+            col.transform.position = new Vector3(target.position.x, col.transform.position.y, col.transform.position.z);
+            Level_Controller.instance.nextLevel();
+        }
+        
     }
 }

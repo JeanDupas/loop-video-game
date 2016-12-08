@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - platform
+  - Ground
+  - Clone
+  - Clone_Spawn
   layers:
   - Default
   - TransparentFX
