@@ -21,18 +21,18 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 0
-        inSlope: 0.055124998
-        outSlope: 0.055124998
+        inSlope: 0.067328244
+        outSlope: 0.067328244
         tangentMode: 10
-      - time: 2.6666667
+      - time: 2.1833334
         value: 0.147
-        inSlope: 0.3434884
-        outSlope: 0.3434884
+        inSlope: 0.34959006
+        outSlope: 0.34959006
         tangentMode: 10
-      - time: 4.016667
+      - time: 3.5333333
         value: 1
-        inSlope: 0.6318518
-        outSlope: 0.6318518
+        inSlope: 0.6318519
+        outSlope: 0.6318519
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -61,7 +61,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 4.016667
+    m_StopTime: 3.5333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,18 +82,18 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 0
-        inSlope: 0.055124998
-        outSlope: 0.055124998
+        inSlope: 0.067328244
+        outSlope: 0.067328244
         tangentMode: 10
-      - time: 2.6666667
+      - time: 2.1833334
         value: 0.147
-        inSlope: 0.3434884
-        outSlope: 0.3434884
+        inSlope: 0.34959006
+        outSlope: 0.34959006
         tangentMode: 10
-      - time: 4.016667
+      - time: 3.5333333
         value: 1
-        inSlope: 0.6318518
-        outSlope: 0.6318518
+        inSlope: 0.6318519
+        outSlope: 0.6318519
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2

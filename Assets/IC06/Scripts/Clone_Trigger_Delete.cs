@@ -33,6 +33,7 @@ namespace Loop
                 foreach (GameObject spawn in spawns)
                 {
                     spawn.GetComponent<Clone_Trigger>().setIsSet(false);
+                    
                 }
             }
         }

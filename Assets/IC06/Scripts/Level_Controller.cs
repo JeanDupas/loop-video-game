@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using Loop;
 
 public class Level_Controller : MonoBehaviour {
 
@@ -8,17 +9,21 @@ public class Level_Controller : MonoBehaviour {
 
     private int level;
     private bool day = true;
+    private bool _isOpened = false;
 
     private Animator groundAnimator;
     private Animator obstaclesAnimator;
     private Animator backgroundAnimator;
     private Animator endDisplayAnimator;
+    private Animator messageDisplayAnimator;
 
     public GameObject ground;
     public GameObject obstacles;
     public GameObject background;
 
     public GameObject endDisplay;
+    public GameObject messageDisplay;
+    public GameObject menuDisplay;
 
     public int Debuglevel;
 
@@ -48,6 +53,7 @@ public class Level_Controller : MonoBehaviour {
         obstaclesAnimator = obstacles.GetComponent<Animator>();
         backgroundAnimator = background.GetComponent<Animator>();
         endDisplayAnimator = endDisplay.GetComponent<Animator>();
+        messageDisplayAnimator = messageDisplay.GetComponent<Animator>();
 
         level = Debuglevel;
         groundAnimator.SetInteger("level", Debuglevel);
@@ -55,13 +61,40 @@ public class Level_Controller : MonoBehaviour {
 
         endDisplayAnimator.SetTrigger("start");
 
+        menuDisplay.SetActive(false);
+
         //endDisplay.SetActive(false);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+    // Update is called once per frame
+    void Update () {
+	    if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            ToggleMenu();
+        }
 	}
+
+    public void ToggleMenu()
+    {
+
+        if (_isOpened)
+            CloseMenu();
+        else
+            OpenMenu();
+
+        _isOpened = !_isOpened;
+    }
+
+    public void OpenMenu()
+    {
+        menuDisplay.SetActive(true);
+    }
+
+    public void CloseMenu()
+    {
+        menuDisplay.SetActive(false);
+    }
+
 
     void OnLevelWasLoaded(int level)
     {
@@ -69,11 +102,16 @@ public class Level_Controller : MonoBehaviour {
         ground = GameObject.Find("Ground");
         background = GameObject.Find("BackGround");
         endDisplay = GameObject.Find("Fade");
+        messageDisplay = GameObject.Find("MessageDisplay");
+        menuDisplay = GameObject.Find("Menu");
+
+        menuDisplay.SetActive(false);
 
         groundAnimator = obstacles.GetComponent<Animator>();
         obstaclesAnimator = obstacles.GetComponent<Animator>();
         backgroundAnimator = background.GetComponent<Animator>();
         endDisplayAnimator = endDisplay.GetComponent<Animator>();
+        messageDisplayAnimator = messageDisplay.GetComponent<Animator>();
 
         obstaclesAnimator.SetInteger("level", this.level);
         endDisplayAnimator.SetTrigger("start");
@@ -111,6 +149,12 @@ public class Level_Controller : MonoBehaviour {
             case 9:
                 setLevelDefault();
                 break;
+            case 10:
+                setLevelDefault();
+                break;
+            case 11:
+                setLevel9();
+                break;
         }
     }
 
@@ -147,25 +191,34 @@ public class Level_Controller : MonoBehaviour {
             case 9:
                 teleportTriggerLevel2();
                 break;
+            case 10:
+                teleportTriggerLevel2();
+                break;
         }
-    }
-
-    private void setLevel2()
-    {
-        groundAnimator.SetInteger("level", 2);
-        obstaclesAnimator.SetInteger("level", 2);
     }
 
     private void setLevel6()
     {
         backgroundAnimator.SetTrigger("end");
         endDisplayAnimator.SetTrigger("end");
-        Invoke("changeLevel", 6.0f);
+        Invoke("changeLevel", 5.0f);
+    }
+
+    private void setLevel9()
+    {
+        backgroundAnimator.SetTrigger("end");
+        endDisplayAnimator.SetTrigger("end");
+        Invoke("quitGame", 8.0f);
     }
 
     private void changeLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
+    }
+
+    private void quitGame()
+    {
+        Application.Quit();
     }
 
     private void teleportTriggerLevel2()
@@ -223,17 +276,32 @@ public class Level_Controller : MonoBehaviour {
         }
     }
 
-    private void setLevel3()
-    {
-        //endDisplay.SetActive(true);
-        groundAnimator.SetInteger("level", 3);
-        obstaclesAnimator.SetInteger("level", 3);
-    }
-
     private void setLevelDefault()
     {
         groundAnimator.SetInteger("level", level);
         obstaclesAnimator.SetInteger("level", level);
+        messageDisplayAnimator.SetInteger("level", level);
+    }
+
+    private void setLevelDefaultClone()
+    {
+        groundAnimator.SetInteger("level", level);
+        obstaclesAnimator.SetInteger("level", level);
+        messageDisplayAnimator.SetInteger("level", level);
+
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag("Clone_Spawn");
+
+        foreach (GameObject clone in clones)
+        {
+            Destroy(clone);
+        }
+
+        foreach (GameObject spawn in spawns)
+        {
+            spawn.GetComponent<Clone_Trigger>().setIsSet(false);
+
+        }
     }
 
     private void setLevel5()

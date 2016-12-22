@@ -9,7 +9,7 @@ namespace Loop
 
         public bool inverted;
 
-        private bool isSet;
+        private bool isSet = false;
 
         // Use this for initialization
         void Start()
@@ -27,8 +27,10 @@ namespace Loop
         {
             if (!isSet)
             {
-
-                Instantiate(Resources.Load("Clone"), new Vector3(target.transform.position.x, target.transform.position.y), Quaternion.identity);
+                if(inverted)
+                    Instantiate(Resources.Load("InvertedClone"), new Vector3(target.transform.position.x, target.transform.position.y), Quaternion.identity);
+                else
+                    Instantiate(Resources.Load("Clone"), new Vector3(target.transform.position.x, target.transform.position.y), Quaternion.identity);
                 isSet = true;
             }
             /*
