@@ -14,6 +14,11 @@ namespace Loop
         public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
         public float[] weights;
 
+        public AudioClip[] musics;
+        public AudioClip transitionMusic;
+
+        private int index = 0;
+
         void Awake()
         {
             //Check if there is already an instance of SoundManager
@@ -62,6 +67,29 @@ namespace Loop
             }
         }
 
+        public void resetMusic()
+        {
+            this.index = -1;
+            nextMusic();
+
+        }
+
+        public void changeMusic(int index)
+        {
+            musicSource.clip = transitionMusic;
+            musicSource.Play();
+            musicSource.loop = false;
+            Invoke("nextMusic", 7.0f);
+        }
+
+        public void nextMusic()
+        {
+            index++;
+            musicSource.clip = musics[index];
+            musicSource.Play();
+            musicSource.loop = true;
+            musicSource.volume = 0.3f;
+        }
 
         public void PlayCharacterSound(bool loop, params AudioClip[] clips)
         {
@@ -83,5 +111,11 @@ namespace Loop
                 //Play the clip.
                 
         }
+
+        public void setIndex(int i)
+        {
+            this.index = i;
+        }
     }
+
 }

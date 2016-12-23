@@ -7,7 +7,7 @@ public class Level_Controller : MonoBehaviour {
 
     public static Level_Controller instance = null;
 
-    private int level;
+    private int level = 1;
     private bool day = true;
     private bool _isOpened = false;
 
@@ -26,6 +26,7 @@ public class Level_Controller : MonoBehaviour {
     public GameObject menuDisplay;
 
     public int Debuglevel;
+    public bool debug;
 
     private void Awake()
     {
@@ -47,23 +48,38 @@ public class Level_Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        day = true;
 
-        groundAnimator = ground.GetComponent<Animator>();
+        obstacles = GameObject.Find("Obstacles");
+        ground = GameObject.Find("Ground");
+        background = GameObject.Find("BackGround");
+        endDisplay = GameObject.Find("Fade");
+        messageDisplay = GameObject.Find("MessageDisplay");
+        menuDisplay = GameObject.Find("Menu");
+
+        menuDisplay.SetActive(false);
+
+        if (debug)
+        {
+            level = Debuglevel;
+        }
+
+        if (level < 5)
+            groundAnimator = ground.GetComponent<Animator>();
+        else
+            groundAnimator = obstacles.GetComponent<Animator>();
+
         obstaclesAnimator = obstacles.GetComponent<Animator>();
         backgroundAnimator = background.GetComponent<Animator>();
         endDisplayAnimator = endDisplay.GetComponent<Animator>();
         messageDisplayAnimator = messageDisplay.GetComponent<Animator>();
 
-        level = Debuglevel;
-        groundAnimator.SetInteger("level", Debuglevel);
-        obstaclesAnimator.SetInteger("level", Debuglevel);
+        day = true;
+
+        
 
         endDisplayAnimator.SetTrigger("start");
-
-        menuDisplay.SetActive(false);
-
-        //endDisplay.SetActive(false);
+        groundAnimator.SetInteger("level", level);
+        obstaclesAnimator.SetInteger("level", level);
     }
 
     // Update is called once per frame
@@ -98,6 +114,8 @@ public class Level_Controller : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
+        day = true;
+
         obstacles = GameObject.Find("Obstacles");
         ground = GameObject.Find("Ground");
         background = GameObject.Find("BackGround");
@@ -125,35 +143,23 @@ public class Level_Controller : MonoBehaviour {
         Loop.SoundManager.instance.ChangeMusicPitch(day);
         switch (level)
         {
-            case 2:
-                setLevelDefault();
-                break;
-            case 3:
-                setLevelDefault();
-                break;
-            case 4:
-                setLevelDefault();
-                break;
             case 5:
                 setLevel5();
                 break;
             case 6:
                 setLevel6();
                 break;
-            case 7:
-                setLevelDefault();
-                break;
-            case 8:
-                setLevelDefault();
-                break;
-            case 9:
-                setLevelDefault();
-                break;
             case 10:
-                setLevelDefault();
+                setLevelDefaultClone();
                 break;
-            case 11:
-                setLevel9();
+            case 12:
+                setLevel12();
+                break;
+            case 13:
+                setRestart();
+                break;
+            default:
+                setLevelDefault();
                 break;
         }
     }
@@ -167,33 +173,13 @@ public class Level_Controller : MonoBehaviour {
         Loop.SoundManager.instance.ChangeMusicPitch(day);
         switch (level)
         {
-            case 2:
-                teleportTriggerLevel2();
-                break;
-            case 3:
-                teleportTriggerLevel2();
-                break;
-            case 4:
-                teleportTriggerLevel2();
-                break;
-            case 5:
-                teleportTriggerLevel2();
-                break;
-            case 6:
-                teleportTriggerLevel2();
-                break;
-            case 7:
-                teleportTriggerLevel2();
-                break;
             case 8:
                 teleportTriggerLevel8();
                 break;
-            case 9:
-                teleportTriggerLevel2();
+            default:
+                teleportTriggerDefault();
                 break;
-            case 10:
-                teleportTriggerLevel2();
-                break;
+            
         }
     }
 
@@ -202,6 +188,21 @@ public class Level_Controller : MonoBehaviour {
         backgroundAnimator.SetTrigger("end");
         endDisplayAnimator.SetTrigger("end");
         Invoke("changeLevel", 5.0f);
+        SoundManager.instance.changeMusic(1);
+    }
+
+        private void setLevel12()
+    {
+        setLevelDefault();
+        SoundManager.instance.nextMusic();
+    }
+
+    private void setRestart()
+    {
+        endDisplayAnimator.SetTrigger("end");
+        this.level = 1;
+        SoundManager.instance.setIndex(0);
+        Invoke("resetLevel", 5.0f);
     }
 
     private void setLevel9()
@@ -216,12 +217,17 @@ public class Level_Controller : MonoBehaviour {
         SceneManager.LoadScene(2);
     }
 
+    private void resetLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void quitGame()
     {
         Application.Quit();
     }
 
-    private void teleportTriggerLevel2()
+    private void teleportTriggerDefault()
     {
         Debug.Log("Teleport Trigger Level 2");
         obstaclesAnimator.SetTrigger("switchState");

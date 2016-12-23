@@ -1151,6 +1151,11 @@ MonoBehaviour:
   weights:
   - 0
   - 0
+  musics:
+  - {fileID: 8300000, guid: c199b49e01303d24780ed74594b6655a, type: 3}
+  - {fileID: 8300000, guid: dce849de4100f8840bf1e8113dbc63ed, type: 3}
+  - {fileID: 8300000, guid: d2382a7681434044688f32ec2c62369b, type: 3}
+  transitionMusic: {fileID: 8300000, guid: e7f532b85129a5c4b892c6c87e68ee6a, type: 3}
 --- !u!82 &1917896349
 AudioSource:
   m_ObjectHideFlags: 0
